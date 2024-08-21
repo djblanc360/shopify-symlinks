@@ -1,0 +1,22 @@
+{
+  "name": "shopify-symlinks",
+  "version": "1.0.0",
+  "description": "This package allows for the development process for a Shopify to be component based. Files can be organized by their function and their relationships with other components.",
+  "main": "index.js",
+  "type": "module",
+  "bin": {
+    "shopify-symlinks": "./cli.js"
+  },
+  "scripts": {
+    "dev": "shopify-symlinks"
+  },
+  "keywords": [],
+  "author": "Daryl Blancaflor",
+  "license": "ISC",
+  "devDependencies": {
+    "chokidar": "^3.6.0"
+  },
+  "dependencies": {
+    "commander": "^12.1.0"
+  }
+}
