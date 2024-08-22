@@ -10,7 +10,11 @@
   "scripts": {
     "dev": "shopify-symlinks"
   },
-  "keywords": [],
+  "keywords": [
+    "shopify",
+    "symlink",
+    "symbolic link"
+  ],
   "author": "Daryl Blancaflor",
   "license": "ISC",
   "devDependencies": {

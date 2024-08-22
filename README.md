@@ -15,20 +15,51 @@ This is my first npm package so it's definitely strict, unrefined and unoptimize
 * Created a `utilities/` directory where `symlinks.js` will bundle each file in folder to a single `utils.js` file in `assets/` directory
 
 ### Example Liquid File:
-`header.liquid` file in `components/header/sections/` while running `npm run dev` should create a `header.liquid` file in `sections/`. The origin is set to the newly created `sections/header.liquid`. Then a symlink is created to reference any changes from the `components/header/sections/header.liquid` file.
+`header.liquid` file in `components/header/sections/` while running `npx shopify-symlinks` should create a `header.liquid` file in `sections/`. The origin is set to the newly created `sections/header.liquid`. Then a symlink is created to reference any changes from the `components/header/sections/header.liquid` file.
 
 ### Example JavaScript File:
-`index.js` file in `components/header/index.js` while running `npm run dev`
+`index.js` file in `components/header/index.js` while running `npx shopify-symlinks`
 should create a `header.js` file in `assets/`. The origin is set to the newly created `assets/header.js`. Then a symlink is created to reference any changes from the `components/header/index.js` file.
 
-`nav.js` file in `components/header/nav.js` while running `npm run dev`
+`nav.js` file in `components/header/nav.js` while running `npx shopify-symlinks`
 should create a `header_nav.js` file in `assets/`. The origin is set to the newly created `assets/header_nav.js`. Then a symlink is created to  reference any changes from the `components/header/nav.js` file.
 
 The content of `polling.js` file in `utilities/` directory is bundled into `utils.js` file in `assets/` directory.
 
+## Usage
+
+### Installation
+```
+npm install -D shopify-symlinks 
+```
+
+optional `package.json`
+```
+  "scripts": {
+    "dev": "shopify-symlinks"
+  },
+```
+
+
+### Run Options
+```
+npx shopify-symlinks
+```
+
+run with custom entrypath
+```
+npx shopify-symlinks -- --entry custom/entry/path.js
+```
+
+watch with dynamic list of directories and default `main.js` entrypoint
+```
+npx shopify-symlinks -- --watch server,integrations
+```
+
 ### Example Development to Production Process
+
 1.
-run `npm run dev`
+run `npx shopify-symlinks`
 - Create file `components/sections/product.liquid` is moved to `sections/product.liquid`, the reference to the origin `components/sections/product.liquid` is saved. 
 - `sections/product.liquid` becomes the new origin and the reference to the `components/sections/product.liquid` origin is retrieved.
 - A symbolic link `sections/product.liquid` from `components/sections/product.liquid` is created.
@@ -87,9 +118,9 @@ export default defineConfig({
 
  
 ## Added Dependencies
-- **concurrently**: JavaScript runtime.
+- **commander**: For command line.
 - **chokidar**: To simplify file watching cross platform.
-- **vite-plugin-shopify**: for Vite integration in Shopify themes
+- **vite-plugin-shopify**: for Vite integration in Shopify themes.
 
 
  
@@ -100,3 +131,9 @@ export default defineConfig({
 * create symbolic link for `.css` files in the `components/` directory
 
 * auto include peripheral directories specified to be watched in 
+
+* auto update `.shopifyignore` with dynamic list of watched peripheral directories
+
+* enforce or recommend pulling of only `templates/` and `config/settings_data.json` to prevent overwriting
+
+* handle use with webpack and themekit
