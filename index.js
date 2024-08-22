@@ -19,6 +19,7 @@ const ASSETS_DIR = config.assetsDir;
 const WACTHED_DIR = Array.from(config.watchDir.keys());
 
 const MAIN_JS_PATH = config.entryJs;
+const UTILS_PATH = config.utilitiesDir
 
 const symlinkedPaths = new Map();
 
@@ -173,7 +174,7 @@ const handleFileAddition = async (filePath) => {
   const type = pathParts[1];
   const fileName = pathParts[pathParts.length - 1];
 
-  if (filePath.startsWith(utilsDir)) {
+  if (filePath.startsWith(UTILS_PATH)) {
     terminalLogs("Detected addition in utilities directory, bundling: {0}", filePath);
     await bundler();
     return;
@@ -204,7 +205,7 @@ const handleFileChange = async (filePath) => {
   const fileName = pathParts[pathParts.length - 1];
 
   // Skip processing for utilities directory
-  if (filePath.startsWith(utilsDir)) {
+  if (filePath.startsWith(UTILS_PATH)) {
     terminalLogs("Detected addition in utilities directory, bundling: {0}", filePath);
     await bundler();
     return;
@@ -243,7 +244,7 @@ const handleFileRemoval = async (filePath) => {
   const fileName = pathParts[pathParts.length - 1];
 
   // Skip processing for utilities directory
-  if (filePath.startsWith(utilsDir)) {
+  if (filePath.startsWith(UTILS_PATH)) {
     terminalLogs("Detected removal in utilities directory, bundling: {0}", filePath);
     await bundler();
     return;

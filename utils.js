@@ -29,7 +29,42 @@ const debounce = (func, timeout) => {
   };
 }
 
+export const ensureDirectoryExists = async (dirPath) => {
+  try {
+    await fs.mkdir(dirPath, { recursive: true });
+    terminalLogs("Directory ensured: {0}", dirPath);
+  } catch (err) {
+    terminalLogs("Error ensuring directory {0}: {1}", dirPath, err.message);
+  }
+};
+
+export const updateShopifyIgnore = async (directories) => {
+  const SHOPIFY_IGNORE_PATH = path.join(process.cwd(), '.shopifyignore');
+  let ignoreContent = '';
+
+  try {
+    if (await fs.access(SHOPIFY_IGNORE_PATH).then(() => true).catch(() => false)) {
+      ignoreContent = await fs.readFile(SHOPIFY_IGNORE_PATH, 'utf8');
+    } else {
+      await fs.writeFile(SHOPIFY_IGNORE_PATH, '', 'utf8');
+      terminalLogs("Created .shopifyignore file at: {0}", SHOPIFY_IGNORE_PATH);
+    }
+
+    await Promise.all(directories.map(async (dir) => {
+      const relativeDir = path.relative(process.cwd(), dir);
+      if (!ignoreContent.includes(relativeDir)) {
+        await fs.appendFile(SHOPIFY_IGNORE_PATH, `${relativeDir}\n`, 'utf8');
+        terminalLogs("Added {0} to .shopifyignore", relativeDir);
+      }
+    }));
+  } catch (err) {
+    terminalLogs("Error updating .shopifyignore: {0}", err.message);
+  }
+};
+
 export {
     terminalLogs,
-    debounce
+    debounce,
+    ensureDirectoryExists,
+    updateShopifyIgnore
 }

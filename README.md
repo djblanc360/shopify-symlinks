@@ -123,7 +123,6 @@ export default defineConfig({
 - **vite-plugin-shopify**: for Vite integration in Shopify themes.
 
 
- 
 ## Future Updates
 
 * optimize symbolic link initialization
@@ -137,3 +136,14 @@ export default defineConfig({
 * enforce or recommend pulling of only `templates/` and `config/settings_data.json` to prevent overwriting
 
 * handle use with webpack and themekit
+
+## Authors
+
+* [@Daryl Blancaflor](djblanc360@gmail.com)
+
+## Version History
+
+* 2.0.0
+  * fixed check of `
+  * On `npm run dev` creates `components/` and `utilities/` directories if none exist
+  * On `npm run dev` adds watched directories including `components/` and `utilities/` directories to a `.shopifyignore` file, create a `.shopifyignore` if none exist
