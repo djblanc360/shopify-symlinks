@@ -322,9 +322,10 @@ const initialSetup = async () => {
 }
 
 export const runService = async (config) => {
-  const mainJsPath = path.join(__dirname, config.entry);
   
-  console.log(`Running with entrypoint: ${mainJsPath}`);
+  terminalLogs("Running from entrypoiny: {0}", config.entryJs);
   
   await initialSetup();
+
+  console.log(config)
 };

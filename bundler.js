@@ -1,7 +1,8 @@
 import fs from 'fs/promises';
 import path from 'path';
 
-import { terminalLogs } from './utils';
+import config from './config.js';
+import { terminalLogs } from './utils.js';
 
 const bundleUtils = async (source, destination) => {
     try {

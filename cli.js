@@ -29,12 +29,15 @@ program
     }
 
 
-    const componentsDir = path.join(__dirname, 'components');
+    const componentsDir = path.join(config.componentsDir);
     await ensureDirectoryExists(componentsDir);
-
+    config.watchDir.set(componentsDir, {
+      source: componentsDir,
+      destination: config.entryJs,
+    });
 
     // default 'utilities' directory and 'utils.js' file
-    const utilitiesDir = path.join(__dirname, 'utilities');
+    const utilitiesDir = path.join('utilities');
     await ensureDirectoryExists(utilitiesDir);
     if (!config.watchDir.has(utilitiesDir)) {
       config.watchDir.set(utilitiesDir, {
