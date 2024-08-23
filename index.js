@@ -188,7 +188,7 @@ const handleFileAddition = async (filePath) => {
     const newFileName = fileName === 'index.js' ? `${component}.js` : `${component}_${fileName}`;
     const destPath = path.join(ASSETS_DIR, newFileName);
     await handleSymlinking(filePath, destPath)
-    await updateEntryJs(MAIN_JS_PATH, `../../assets/${newFileName}`);
+    await updateEntryJs(config.watchDir.get(filePath).destination, `../../assets/${newFileName}`);
   }
 }
 
@@ -227,6 +227,7 @@ const handleFileChange = async (filePath) => {
     //   await removeSymlink(destPath);
     //   await createSymlink(destPath, newFileName);
     }
+    // await updateEntryJs(config.watchDir.get(filePath).destination, `../../assets/${newFileName}`);
   }
 }
 
@@ -254,12 +255,12 @@ const handleFileRemoval = async (filePath) => {
     const newFileName = fileName === 'index.js' ? `${component}.js` : `${component}_${fileName}`;
     const importPath = `../../assets/${newFileName}`;
     const destPath = path.join(ASSETS_DIR, newFileName);
-    await removeFromEntryJs(MAIN_JS_PATH, importPath);
-    await removeSymlink(filePath);
+    await removeFromEntryJs(config.watchDir.get(filePath).destination, importPath);
+    await removeSymlink(destPath);
   } else if (type === 'sections' || type === 'snippets') {
     const destDir = type === 'sections' ? SECTIONS_DIR : SNIPPETS_DIR;
     const destPath = path.join(destDir, fileName);
-    await removeSymlink(filePath);
+    await removeSymlink(destPath);
   }
 
 }
@@ -306,7 +307,7 @@ const initialSetup = async () => {
             const destPath = path.join(ASSETS_DIR, newFileName);
 
             await handleSymlinking(srcPath, destPath);
-            await updateEntryJs(MAIN_JS_PATH, `../../assets/${newFileName}`);
+            await updateEntryJs(config.watchDir.get(srcPath).destination, `../../assets/${newFileName}`);
         }
       }));
     }));

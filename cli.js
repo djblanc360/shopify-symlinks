@@ -16,26 +16,26 @@ program
     }
 
     if (options.watch) {
-      options.watch.forEach((dir) => {
+      for (const dir of options.watch) {
         const resolvedDir = path.resolve(dir);
-        ensureDirectoryExists(resolvedDir);
+        await ensureDirectoryExists(resolvedDir);
         if (!config.watchDir.has(resolvedDir)) {
           config.watchDir.set(resolvedDir, {
             source: resolvedDir,
             destination: path.join(config.assetsDir, `${path.basename(dir)}.js`),
           });
         }
-      });
+      }
     }
 
 
     const componentsDir = path.join(__dirname, 'components');
-    ensureDirectoryExists(componentsDir);
+    await ensureDirectoryExists(componentsDir);
 
 
     // default 'utilities' directory and 'utils.js' file
     const utilitiesDir = path.join(__dirname, 'utilities');
-    ensureDirectoryExists(utilitiesDir);
+    await ensureDirectoryExists(utilitiesDir);
     if (!config.watchDir.has(utilitiesDir)) {
       config.watchDir.set(utilitiesDir, {
         source: utilitiesDir,

@@ -1,3 +1,6 @@
+import fs from 'fs/promises';
+import path from 'path';
+
 /**
  * Logs a formatted message with simplified file paths.
  * @param {string} messageTemplate - The message template containing placeholders for paths.
