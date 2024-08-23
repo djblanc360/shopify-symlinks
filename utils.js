@@ -32,7 +32,11 @@ const debounce = (func, timeout) => {
   };
 }
 
-export const ensureDirectoryExists = async (dirPath) => {
+/**
+ * Ensure directory exists or creates it
+ * @param {*} dirPath 
+ */
+const ensureDirectoryExists = async (dirPath) => {
   try {
     await fs.mkdir(dirPath, { recursive: true });
     terminalLogs("Directory ensured: {0}", dirPath);
@@ -41,7 +45,11 @@ export const ensureDirectoryExists = async (dirPath) => {
   }
 };
 
-export const updateShopifyIgnore = async (directories) => {
+/**
+ * Updates .shopifyignore file with watched directories
+ * @param {*} directories 
+ */
+const updateShopifyIgnore = async (directories) => {
   const SHOPIFY_IGNORE_PATH = path.join(process.cwd(), '.shopifyignore');
   let ignoreContent = '';
 

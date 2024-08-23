@@ -8,7 +8,7 @@ import { Command } from 'commander';
 const program = new Command();
 
 program
-  .option('-e, --entry <path>', 'Set the entry point for the service')
+  .option('-e, --entry <path>', 'Set the entry point for components, default is assets/main.js')
   .option('-w, --watch <dirs>', 'Set additional directories to watch, separated by commas', (val) => val.split(','))
   .action(async (options) => {
     if (options.entry) {
@@ -46,8 +46,9 @@ program
     const WATCHED_DIRS = Array.from(config.watchDir.keys());
     await updateShopifyIgnore(WATCHED_DIRS);
 
+    // delay for globals
     const { runService } = await import('./index.js');
-    runService(config);
+    await runService(config);
   });
 
 program.parse(process.argv);

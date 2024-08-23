@@ -1,6 +1,6 @@
 {
   "name": "shopify-symlinks",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "This package allows for the development process for a Shopify to be component based. Files can be organized by their function and their relationships with other components.",
   "main": "index.js",
   "type": "module",
